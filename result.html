@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Result</title>
+    <link rel="stylesheet" href="result.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>PAYROLL PROGRAM</h1>
+
+        <div class="details">
+            <p><span class="label">ID:</span> <span class="value" id="idNumber"></span></p>
+            <p><span class="label">NAME:</span> <span class="value" id="fullName"></span></p>
+            <p><span class="label">POSITION:</span> <span class="value" id="position"></span></p>
+            <p><span class="label">RATE:</span> <span class="value" id="rate"></span></p>
+            <p><span class="label">DAYS:</span> <span class="value" id="workDays"></span></p>
+            <p><span class="label">GROSS PAY:</span> <span class="value" id="grossPay"></span></p>
+        </div>
+
+        <div class="deductions">
+            <h2>DEDUCTIONS</h2>
+            <p><span class="label">SSS(5%):</span> <span class="value" id="sssDeduction"></span></p>
+            <p><span class="label">PAG-IBIG(3%):</span> <span class="value" id="pagIbigDeduction"></span></p>
+            <p><span class="label">PHILHEALTH(2%):</span> <span class="value" id="philHealthDeduction"></span></p>
+            <p><span class="label">TAX(5%):</span> <span class="value" id="taxDeduction"></span></p>
+            <p><span class="label">TOTAL DEDUCTION:</span> <span class="value" id="totalDeduction"></span></p>
+        </div>
+
+        <div class="net-pay">
+            <p><span class="label">NET PAY:</span> <span class="value" id="netPay"></span></p>
+        </div>
+
+        <a href="index.html">Back to Payroll System</a>
+    </div>
+
+    <script>
+        function formatWithPeso(amount) {
+        return "₱" + amount.toFixed(2);
+        }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const idNumber = urlParams.get('idNumber')|| '-';
+    const lastName = urlParams.get('lastName');
+    const firstName = urlParams.get('firstName');
+    const middleName = urlParams.get('middleName').toUpperCase() || "";
+    const position = urlParams.get('position');
+    const rate = parseFloat(urlParams.get('rate'));
+    const workDays = parseInt(urlParams.get('workDays'));
+    const grossPay = rate * workDays;
+    const sssDeduction = grossPay * 0.05;
+    const pagIbigDeduction = grossPay * 0.03;
+    const philHealthDeduction = grossPay * 0.02;
+    const taxDeduction = grossPay * 0.05;
+    const totalDeduction = sssDeduction + pagIbigDeduction + philHealthDeduction + taxDeduction;
+    const netPay = grossPay - totalDeduction;
+
+    document.getElementById("idNumber").textContent = idNumber || '-';
+    document.getElementById("fullName").textContent = `${firstName} ${middleName ? middleName.charAt(0) + ". " : " "}${lastName}`;
+    document.getElementById("position").textContent = position;
+    document.getElementById("rate").textContent = formatWithPeso(rate);
+    document.getElementById("workDays").textContent = workDays;
+    document.getElementById("grossPay").textContent = formatWithPeso(grossPay);
+    document.getElementById("sssDeduction").textContent = formatWithPeso(sssDeduction);
+    document.getElementById("pagIbigDeduction").textContent = formatWithPeso(pagIbigDeduction);
+    document.getElementById("philHealthDeduction").textContent = formatWithPeso(philHealthDeduction);
+    document.getElementById("taxDeduction").textContent = formatWithPeso(taxDeduction);
+    document.getElementById("totalDeduction").textContent = formatWithPeso(totalDeduction);
+    document.getElementById("netPay").textContent = formatWithPeso(netPay);
+
+    </script>
+
+</body>
+</html>

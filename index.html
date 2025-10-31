@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Payroll System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Salary Payroll System</h1>
+        
+        <form id="payroll-form" action="result.html" method="GET">
+            <label for="idNumber">Employee ID:</label>
+<input type="text" id="idNumber" name="idNumber" required>
+
+
+            
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+            
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+            
+            <label for="middleName">Middle Name:</label>
+            <input type="text" id="middleName" name="middleName">
+            
+            <label for="position">Position:</label>
+            <input type="text" id="position" name="position" required>
+            
+            <label for="rate">Hourly Rate:</label>
+            <input type="number" id="rate" name="rate" required>
+            
+            <label for="workDays">Work Days:</label>
+            <input type="number" id="workDays" name="workDays" required>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+   document.getElementById("payroll-form").addEventListener("submit", function(event) {
+    const idNumber = document.getElementById("idNumber").value || '-'; 
+    const lastName = document.getElementById("lastName").value;
+    const firstName = document.getElementById("firstName").value;
+    const middleName = document.getElementById("middleName").value;
+    const position = document.getElementById("position").value;
+    const rate = parseFloat(document.getElementById("rate").value);
+    const workDays = parseInt(document.getElementById("workDays").value);
+
+    if (isNaN(rate) || isNaN(workDays) || workDays <= 0 || rate <= 0) {
+        alert("Please provide valid values for rate and workdays.");
+        event.preventDefault();
+        return;
+    }
+
+    const idNumberRegex = /^[0-9-]+$/;
+    if (!idNumberRegex.test(idNumber)) {
+        alert("Employee ID should contain only numbers and dashes.");
+        event.preventDefault();
+        return;
+    }
+
+    const salary = rate * workDays;
+    const resultPageURL = `result.html?idNumber=${idNumber}&lastName=${lastName}&firstName=${firstName}&middleName=${middleName}&position=${position}&rate=${rate}&workDays=${workDays}`;
+    window.location.href = resultPageURL;
+    event.preventDefault(); 
+});
+
+document.getElementById("idNumber").addEventListener("keypress", function(event) {
+    const char = event.key;
+    if (!/[0-9-]/.test(char)) {
+        event.preventDefault();
+    }
+});
+    </script>
+</body>
+</html>
