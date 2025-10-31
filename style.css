@@ -20,6 +20,7 @@ body {
     border: 5px solid #000;
     padding: 50px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
 }
 
 h1 {
@@ -90,5 +91,6 @@ button:hover {
     font-size: 18px;
     color: #333;
 }
+
 
 
