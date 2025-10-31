@@ -19,6 +19,7 @@ body {
     width: 400px;
     border: 5px solid #000;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 10px 10px;
 }
 
 h1 {
